@@ -1,0 +1,12 @@
+#to deploy in prod env:
+#docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
+version: "3"
+
+services:
+  mercuryou:
+    image: node:10.15.3
+    working_dir: "/home/node"
+    volumes:
+      - './:/home/node/'
+    labels:
+      - "traefik.frontend.rule=Host:api.mercuryou.com"

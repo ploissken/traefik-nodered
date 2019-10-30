@@ -1,0 +1,46 @@
+version: "3"
+
+networks:
+  traefik:
+    external: true
+  internal:
+    external: false
+
+services:
+  mercuryou:
+    command: bash -c "npm install && npx gulp serve"
+    depends_on:
+      - moondb
+    networks:
+      - traefik
+      - internal
+    labels:
+      - "traefik.backend=mercuryou"
+      - "traefik.docker.network=traefik"
+      - "traefik.enable=true"
+      - "traefik.port=8000"
+    environment:
+      SEQ_DB: myou-db
+      SEQ_USER: jessepinkman
+      SEQ_PW: methereum
+      HOST: 0.0.0.0
+
+  moondb:
+    image: postgres:10.2-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: jessepinkman
+      POSTGRES_PASSWORD: methereum
+      POSTGRES_DB: myou-db
+    networks:
+      - internal
+    labels:
+      - "traefik.enable=false" #wont display at monitor.localhost
+      - "traefik.backend=moondb"
+      - "traefik.docker.network=internal"
+      - "traefik.port=5432"
+    volumes:
+      - /var/lib/postgresql/data/
+
+volumes:
+  node_modules:
