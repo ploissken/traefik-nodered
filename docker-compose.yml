@@ -1,0 +1,1 @@
+# git remote add deploy root@txto.com.br:/var/www/nodered/app.git
