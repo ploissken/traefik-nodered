@@ -1,1 +1,32 @@
 # git remote add deploy root@txto.com.br:/var/www/nodered/app.git
+version: "3"
+
+networks:
+  traefik:
+    external: true
+  internal:
+    external: false
+
+services:
+  nodered:
+    image: nodered/node-red:latest-minimal
+    networks:
+      - traefik
+      - internal
+      - node-red-net
+    ports:
+      - "1880:1880"
+    labels:
+      - "traefik.backend=nodered"
+      - "traefik.docker.network=traefik"
+      - "traefik.enable=true"
+      - "traefik.port=1880"
+      - "traefik.frontend.rule=Host:red.localhost"
+    environment:
+      HOST: 0.0.0.0
+      TZ: America/Sao_Paulo
+    volumes:
+      - node-red-data
+
+volumes:
+  node-red-data:
