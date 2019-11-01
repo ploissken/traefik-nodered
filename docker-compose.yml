@@ -21,7 +21,6 @@ services:
       - "traefik.enable=true"
       - "traefik.port=1880"
       - "traefik.frontend.rule=Host:nodered.controlartcloud.com"
-
     environment:
       HOST: 0.0.0.0
       TZ: America/Sao_Paulo
