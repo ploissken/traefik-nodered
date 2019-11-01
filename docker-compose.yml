@@ -13,7 +13,6 @@ services:
     networks:
       - traefik
       - internal
-      - node-red-net
     ports:
       - "1880:1880"
     labels:
