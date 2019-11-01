@@ -20,12 +20,13 @@ services:
       - "traefik.docker.network=traefik"
       - "traefik.enable=true"
       - "traefik.port=1880"
-      - "traefik.frontend.rule=Host:red.localhost"
+      - "traefik.frontend.rule=Host:nodered.controlartcloud.com"
+
     environment:
       HOST: 0.0.0.0
       TZ: America/Sao_Paulo
     volumes:
-      - node-red-data
+      - './:/home/node/'
 
 volumes:
   node-red-data:
