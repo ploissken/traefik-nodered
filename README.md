@@ -39,5 +39,6 @@ services:
       HOST: 0.0.0.0
       TZ: America/Sao_Paulo #specific configuration of nodered container
     volumes:
-      - './:/home/node/' # persist files to /home/node
+      - ./:/data # persist files to root folder
+    user: "root"
 ```
